@@ -1,3 +1,5 @@
+#include "fft.h"
+
 void fft(CArray &x)
 {
 	// DFT
@@ -40,4 +42,19 @@ void fft(CArray &x)
 			x[b] = t;
 		}
 	}
+}
+
+void ifft(CArray& x)
+{
+    // conjugate the complex numbers
+    x = x.apply(std::conj);
+
+    // forward fft
+    fft( x );
+
+    // conjugate the complex numbers again
+    x = x.apply(std::conj);
+
+    // scale the numbers
+    x /= x.size();
 }

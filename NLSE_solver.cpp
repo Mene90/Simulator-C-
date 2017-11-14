@@ -1,34 +1,15 @@
-#include <cmath>
-#include <complex>
-#include <iostream>
-#include <valarray>
-#include "fft.h"
+#include "NLSE_solver.hpp"
 
-using namespace std;
-
-class NLSE_solver{
-
-  typedef std::complex  <double>   Complex;
-  typedef std::valarray <Complex>  CArray;
-  typedef std::valarray <double>   DArray;
-
-  int nstep;
-  const double PI = 3.141592653589793238460;
-  // const std::complex<double> i(int re = 0, int  im = 1);
-
-public:
-  NLSE_solver(int nstep)
+  NLSE_solver::NLSE_solver(int nstep)
               : nstep{nstep} {}
 
-  void solve (CArray& ux, CArray& beta, DArray& geffz, double dz){
+  void NLSE_solver::solve (CArray& ux, CArray& beta, DArray& geffz, double dz){
       ssfm(ux,beta,geffz,dz);
   }
 
-  int getNsteps(){return nstep;}
+  int NLSE_solver::getNsteps(){return nstep;}
 
-private:
-
-  void ssfm (CArray& ux, CArray& beta, DArray& geffz, double dz){
+  void NLSE_solver::ssfm (CArray& ux, CArray& beta, DArray& geffz, double dz){
     Complex i(0,1);
     CArray Fb  = exp(i*dz*beta);
     CArray Fhb = exp(i*dz*beta/2);
@@ -44,15 +25,13 @@ private:
     ln_step(Fhb,ux);
   }
 
-  void ln_step(CArray& Fb, CArray& ux){
+  void NLSE_solver::ln_step(CArray& Fb, CArray& ux){
     fft(ux);
     ux = ux * Fb;
     ifft(ux);
   }
 
-  void nl_step(Complex geffz, CArray& ux){
+  void NLSE_solver::nl_step(Complex geffz, CArray& ux){
     Complex i(0,1);
     ux = ux*exp(-1.0*i*geffz*pow(abs(ux),2));
   }
-
-};

@@ -2,7 +2,18 @@
 #include <complex>
 #include <iostream>
 #include <valarray>
-#include "fft.h"
+
+
+//Constants.hpp
+#ifndef CONST_H
+#define CONST_H
+#include "Constants.hpp"
+#endif
+//fft.hpp
+#ifndef FFT_H
+#define FFT_H
+#include "fft.hpp"
+#endif
 
 using namespace std;
 
@@ -13,8 +24,6 @@ class NLSE_solver{
   typedef std::valarray <double>   DArray;
 
   int nstep;
-  // const double PI = 3.141592653589793238460;
-  // const std::complex<double> i(int re = 0, int  im = 1);
 
 public:
   NLSE_solver(int nstep);
@@ -24,5 +33,5 @@ private:
   void ssfm (CArray& ux, CArray& beta, DArray& geffz, double dz);
   void ln_step(CArray& Fb, CArray& ux);
   void nl_step(Complex geffz, CArray& ux);
-  
+
 };

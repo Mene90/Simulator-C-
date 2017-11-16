@@ -4,7 +4,23 @@
 #include <iostream>
 #include <valarray>
 
+//Constants.hpp
+#ifndef CONST_H
+#define CONST_H
+#include "Constants.hpp"
+#endif
+
+//NLSE_solver.hpp
+#ifndef NLSE_SOLVER_H
+#define NLSE_SOLVER_H
+#include "NLSE_solver.hpp"
+#endif
+
+//Fiber.hpp
+#ifndef FIBER_H
+#define FIBER_H
 #include "Fiber.hpp"
+#endif
 
 using namespace std;
 
@@ -28,13 +44,36 @@ CArray gaussGen (int N, double sgn){
   return x;
 }
 
+DArray getNormFreqs(int Nsymb, int Nt){
+
+    double stepf = 1/Nsymb;
+    double FN_array[Nsymb*Nt];
+
+    std::generate_n (FN_array,Nt/2-stepf,[Nt,stepf](){
+      double current  = -Nt/2;
+      double tmp      = current;
+      current        += stepf;
+      return current++;
+    });
+
+    DArray FN(FN_array,Nsymb*Nt);
+
+    return FN;
+}
+
 
 int main(int argc, char const *argv[]) {
 
   Fiber       fb(1e5,0.2,17,0,2.5e-20,80);
   NLSE_solver pro_sim(100);
 
-  CArray ux = gaussGen(20,0.7071);
+  int N  = pow(2,4);
+  int Nt = 1;
+
+
+  DArray FN = getNormFreqs(N,Nt);
+
+  CArray ux = gaussGen(N,0.7071);
 
   // for(auto n : ux) {
   //      std::cout << n << '\n';

@@ -1,4 +1,8 @@
-#include "fft.h"
+//fft.hpp
+#ifndef FFT_H
+#define FFT_H
+#include "fft.hpp"
+#endif
 
 void fft(CArray &x)
 {

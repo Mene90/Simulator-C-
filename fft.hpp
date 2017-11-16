@@ -2,7 +2,12 @@
 #include <iostream>
 #include <valarray>
 
-const double PI = 3.141592653589793238460;
+//Constants.hpp
+#ifndef CONST_H
+#define CONST_H
+#include "Constants.hpp"
+#endif
+
 
 typedef std::complex  <double>   Complex;
 typedef std::valarray <Complex>  CArray;

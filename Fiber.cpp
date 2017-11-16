@@ -29,3 +29,11 @@ void Fiber::propagation (CArray& ux, double gmp, CArray& beta, NLSE_solver num_m
       num_method.solve(ux,beta,geffz,dz);
 
 }
+
+double Fiber::getGamma(double lambda) {
+  return 2*PI*nlindex /(lambda * aeff) * 1e21;
+}
+
+double Fiber::getBeta2(double lambda) {
+  return pow(lambda,2)/2/PI/CLIGHT * dispersion * 1e-24;
+}

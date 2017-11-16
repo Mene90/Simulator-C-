@@ -30,6 +30,7 @@ CArray gaussGen (int N, double sgn){
 
 
 int main(int argc, char const *argv[]) {
+
   Fiber       fb(1e5,0.2,17,0,2.5e-20,80);
   NLSE_solver pro_sim(100);
 

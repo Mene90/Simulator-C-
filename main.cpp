@@ -69,11 +69,15 @@ int main(int argc, char const *argv[]) {
 
   int N  = pow(2,4);
   int Nt = 1;
+  int Rs = 50;
 
 
-  DArray FN = getNormFreqs(N,Nt);
+  DArray FN    = getNormFreqs(N,Nt);
+  DArray omega = 2*PI*Rs*FN*1e9;
+  DArray beta  = pow(omega,2);
+  // *fb.getBeta2/2 + pow(omega,3)*fb.getBeta3/6;
 
-  CArray ux = gaussGen(N,0.7071);
+  CArray ux    = gaussGen(N,0.7071);
 
   // for(auto n : ux) {
   //      std::cout << n << '\n';

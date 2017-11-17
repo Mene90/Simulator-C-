@@ -37,3 +37,7 @@ double Fiber::getGamma(double lambda) {
 double Fiber::getBeta2(double lambda) {
   return pow(lambda,2)/2/PI/CLIGHT * dispersion * 1e-24;
 }
+
+double Fiber::getBeta3(doubel lambda){
+  return 0.0;
+}
